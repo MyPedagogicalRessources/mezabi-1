@@ -29,6 +29,7 @@ use yasmf\HttpHelper;
 <?php } ?>
 
 <form action="index.php" method="post">
+    <input type="hidden" name="controller" value="Categories">
     <input type="hidden" name="action" value="saveCategorie">
     <input type="hidden" name="edition" value="true">
     <input type="hidden" name="code_categorie" value="<?php echo $code ?>">
