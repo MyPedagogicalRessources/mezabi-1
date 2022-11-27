@@ -2,15 +2,28 @@
 namespace controllers;
 
 use yasmf\View;
+use services\ArticlesService;
 
 class HomeController {
 
+    private $articlesService;
+
+    /**
+     * Create and initialize a HomeController object
+     */
+    public function __construct()
+    {
+        $this->articlesService = ArticlesService::getDefaultService();
+    }
+
+    /**
+     * @param $pdo
+     *  the pdo object used to connect to the database
+     * @return View
+     *  the view in charge of displaying the categories
+     */
     public function index($pdo) {
-        $sql = "select code_categorie, designation 
-            from a_categories
-            order by code_categorie";
-        $searchStmt = $pdo->prepare($sql);
-        $searchStmt->execute();
+        $searchStmt = $this->articlesService->findAllCategories($pdo);
         $view = new View("mezabi-1/views/all_categories");
         $view->setVar('searchStmt',$searchStmt);
         return $view;
