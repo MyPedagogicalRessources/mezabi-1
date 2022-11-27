@@ -34,7 +34,7 @@ use yasmf\HttpHelper;
             <td><?php echo $code ?></td>
             <td><?php echo $designation ?></td>
             <td><a href="/mezabi-1?controller=Articles&code_categorie=<?php echo $code ?>&categorie=<?php echo $designation ?>">Voir les articles</a></td>
-            <td><a href="/mezabi-1/edit-categorie.php?code_categorie=<?php echo $code ?>&categorie=<?php echo $designation ?>">Modifier la catégorie</a></td>
+            <td><a href="/mezabi-1?action=goEditCategorie&code_categorie=<?php echo $code ?>&categorie=<?php echo $designation ?>">Modifier la catégorie</a></td>
         </tr>
     <?php } ?>
 </table>

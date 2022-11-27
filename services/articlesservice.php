@@ -42,6 +42,24 @@ class ArticlesService
         return $searchStmt;
     }
 
+    /**
+     * @param $pdo
+     *  The pdo object used to connect to the database
+     * @param $designation
+     *  the new designation of the categorie
+     * @param $code
+     *  the code of the categorie
+     */
+    public function updateCategorie($pdo, $designation, $code) {
+        try {
+            $sql = "update a_categories set designation = ? where code_categorie = ?";
+            $searchStmt = $pdo->prepare($sql);
+            $searchStmt->execute([$designation, $code]);
+        } catch(PDOException $exception) {
+            throw new PDOException($exception->getMessage(), (int)$exception->getCode());
+        }
+    }
+
     private static $defaultService;
 
     /**
