@@ -39,12 +39,7 @@ class CategoriesController {
     public function goEditCategorie($pdo) {
         $code = HttpHelper::getParam('code_categorie');
         $designation = HttpHelper::getParam('categorie');
-        $view = new View("mezabi-1/views/edit_categorie");
-        $view->setVar('code', $code);
-        $view->setVar('designation', $designation);
-        $view->setVar('message', null);
-        $view->setVar('error', null);
-        return $view;
+        return $this->buildEdidtCategorieView($code, $designation);
     }
 
     /**
@@ -56,17 +51,27 @@ class CategoriesController {
     public function saveCategorie($pdo) {
         $code = HttpHelper::getParam('code_categorie');
         $designation = HttpHelper::getParam('categorie');
-        $view = new View("mezabi-1/views/edit_categorie");
-        $view->setVar('code', $code);
-        $view->setVar('designation', $designation);
-        $view->setVar('message', null);
-        $view->setVar('error', null);
+        $view = $this->buildEdidtCategorieView($code, $designation);
         try {
             $this->articlesService->updateCategorie($pdo,$designation, $code);
             $view->setVar('message', "Categorie modifiée !");
         } catch(\PDOException $ex) {
             $view->setVar('error', "Un problème est survenu.");
         }
+        return $view;
+    }
+
+    /**
+     * @param $code the code of the category
+     * @param $designation the designation of the category
+     * @return View the built view
+     */
+    private function buildEdidtCategorieView($code, $designation) {
+        $view = new View("mezabi-1/views/edit_categorie");
+        $view->setVar('code', $code);
+        $view->setVar('designation', $designation);
+        $view->setVar('message', null);
+        $view->setVar('error', null);
         return $view;
     }
 
